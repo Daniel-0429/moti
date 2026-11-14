@@ -1,15 +1,17 @@
 'use strict';
 
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+import http from 'node:http';
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
 
-const { McpClient, McpError, DEFAULT_MCP_URL } = require('./lib/mcp');
-const tizhuang = require('./lib/tizhuang');
-const { buildMockPaper } = require('./lib/mock');
+import { McpClient, McpError, DEFAULT_MCP_URL } from './lib/mcp.js';
+import * as tizhuang from './lib/tizhuang.js';
+import { buildMockPaper } from './lib/mock.js';
 
-const ROOT = __dirname;
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const PUBLIC_DIR = path.join(ROOT, 'public');
 const CACHE_DIR = path.join(ROOT, '.cache', 'papers');
 const EDITION_DIR = path.join(ROOT, '.cache', 'editions');
 const EDITION_TTL = 7 * 24 * 60 * 60 * 1000;
@@ -439,11 +441,11 @@ function serveStatic(req, res, url) {
 
   let file = null;
   if (pathname === '/index.html') {
-    file = path.join(ROOT, 'index.html');
+    file = path.join(PUBLIC_DIR, 'index.html');
   } else if (pathname.indexOf('/assets/') === 0) {
     const name = path.basename(pathname);
     if (name !== pathname.slice('/assets/'.length)) return sendText(res, 404, 'Not Found');
-    file = path.join(ROOT, 'assets', name);
+    file = path.join(PUBLIC_DIR, 'assets', name);
   } else if (pathname === '/favicon.ico') {
     res.writeHead(204);
     return res.end();

@@ -147,9 +147,18 @@
     return value < 10 ? '0' + value : String(value);
   }
 
+  var DAY_OFFSET_MS = 8 * 60 * 60 * 1000;
+
+  function beijingDate(date) {
+    return new Date((date ? date.getTime() : Date.now()) + DAY_OFFSET_MS);
+  }
+
+  function dateKeyOf(d) {
+    return d.getUTCFullYear() + '-' + pad2(d.getUTCMonth() + 1) + '-' + pad2(d.getUTCDate());
+  }
+
   function todayKey() {
-    var d = new Date();
-    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+    return dateKeyOf(beijingDate());
   }
 
   function dateText(d) {
@@ -524,19 +533,19 @@
       if (state.history[i] && state.history[i].date) dates[state.history[i].date] = true;
     }
 
-    var d = new Date();
-    if (!dates[todayKey()]) d.setDate(d.getDate() - 1);
+    var d = beijingDate();
+    if (!dates[dateKeyOf(d)]) d.setUTCDate(d.getUTCDate() - 1);
 
     var count = 0;
-    while (dates[todayKeyFromDate(d)]) {
+    while (dates[dateKeyOf(d)]) {
       count++;
-      d.setDate(d.getDate() - 1);
+      d.setUTCDate(d.getUTCDate() - 1);
     }
     return count;
   }
 
   function todayKeyFromDate(d) {
-    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+    return dateKeyOf(beijingDate(d));
   }
 
   function sourceLabel(paper) {

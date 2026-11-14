@@ -1,0 +1,15 @@
+name = "moti"
+compatibility_date = "2026-09-01"
+pages_build_output_dir = "public"
+
+# 可选：给试卷和教材版本加 KV 缓存，减少题庄额度消耗。
+# 创建命名空间：
+#   npx wrangler kv namespace create MOTI_CACHE
+# 然后把返回的 id 填到下面并取消注释。
+# [[kv_namespaces]]
+# binding = "MOTI_CACHE"
+# id = "替换成你的 namespace id"
+
+# 环境变量不要写在这里，请在 Cloudflare Pages 控制台配置：
+#   TIZHUANG_API_KEY  （必填，Secret）
+#   TIZHUANG_MCP_URL  （可选，默认 https://tizhuang.qcscience.cc/mcp）

@@ -2,12 +2,11 @@
 /* 临时调试脚本：连接题庄 MCP，打印工具列表与输入 schema。
  * 用法：node tools/mcp-probe.js [toolName] [jsonArgs]
  */
-'use strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const fs = require('fs');
-const path = require('path');
-
-const root = path.join(__dirname, '..');
+const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const envFile = path.join(root, '.env.local');
 const env = {};
 if (fs.existsSync(envFile)) {
