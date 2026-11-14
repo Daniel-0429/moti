@@ -1,0 +1,14 @@
+{
+  "name": "ink-tizhuang",
+  "version": "1.0.0",
+  "private": true,
+  "description": "墨题：电纸书风格的题庄每日刷题网页",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "probe": "node tools/mcp-probe.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

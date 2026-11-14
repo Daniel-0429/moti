@@ -1,0 +1,16 @@
+# 本地配置与密钥（不要提交）
+.env
+.env.local
+.env.*.local
+*.key
+
+# 依赖与运行时缓存
+node_modules/
+.cache/
+.playwright-mcp/
+
+# 日志与系统文件
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db

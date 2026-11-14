@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f2f2ec">
+<title>墨题 · 题庄每日精选</title>
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="masthead" id="masthead">
+    <div class="wrap masthead-inner">
+      <div class="brand">
+        <span class="brand-mark">墨</span>
+        <span class="brand-text">
+          <strong>墨题</strong>
+          <small>题庄 · 每日精选</small>
+        </span>
+      </div>
+      <nav class="nav" id="nav">
+        <button type="button" class="nav-btn" data-action="nav" data-nav="home">今日</button>
+        <button type="button" class="nav-btn" data-action="nav" data-nav="settings">设置</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap main" id="main">
+
+    <section class="view" id="view-home">
+      <div class="dateline">
+        <span id="home-date">—</span>
+        <span id="home-streak"></span>
+      </div>
+
+      <div class="hero" id="home-hero"></div>
+
+      <div class="panel" id="home-config"></div>
+
+      <div class="panel" id="home-recent"></div>
+
+      <div class="notice" id="home-notice"></div>
+    </section>
+
+    <section class="view" id="view-setup">
+      <h1 class="page-title" id="setup-title">设置学习档案</h1>
+      <p class="lede">先选学段和年级，再勾选每天要练的学科。题目来自题庄题库。</p>
+
+      <div class="field">
+        <div class="field-label">学段</div>
+        <div class="seg" id="setup-stage"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">年级</div>
+        <div class="seg" id="setup-grade"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">学科 <span class="hint">可多选，每天每科各出题</span></div>
+        <div class="check-grid" id="setup-subjects"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">教材版本 <span class="hint">按学科分别选择，默认不限</span></div>
+        <div class="edition-list" id="setup-editions"></div>
+        <p class="hint" id="setup-editions-hint"></p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">知识点 <span class="hint">可选，按学科筛选；留空则整科出题</span></div>
+        <div class="kp-list" id="setup-knowledge"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">每科题量</div>
+        <div class="seg" id="setup-count"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">题型</div>
+        <div class="seg" id="setup-mode"></div>
+        <p class="hint" id="setup-mode-hint"></p>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-action="setup-save" id="setup-save">保存并开始</button>
+        <button type="button" class="btn" data-action="setup-cancel" id="setup-cancel">取消</button>
+      </div>
+
+      <div class="fineprint" id="setup-fineprint"></div>
+    </section>
+
+    <section class="view" id="view-quiz">
+      <div class="quiz-top">
+        <div class="quiz-meta">
+          <span id="quiz-subject"></span>
+          <span id="quiz-type"></span>
+          <span id="quiz-index"></span>
+        </div>
+        <div class="quiz-actions">
+          <button type="button" class="btn btn-small" data-action="quiz-back">返回</button>
+          <button type="button" class="btn btn-small" data-action="quiz-submit">交卷</button>
+        </div>
+      </div>
+
+      <div class="sheet" id="quiz-sheet"></div>
+
+      <article class="question" id="quiz-question"></article>
+
+      <div class="quiz-nav">
+        <button type="button" class="btn" data-action="quiz-prev" id="quiz-prev">上一题</button>
+        <button type="button" class="btn" data-action="quiz-next" id="quiz-next">下一题</button>
+      </div>
+
+      <div class="quiz-submit-bottom">
+        <button type="button" class="btn" data-action="quiz-submit">交卷并查看解析</button>
+      </div>
+    </section>
+
+    <section class="view" id="view-result">
+      <div class="result-head" id="result-head"></div>
+      <div class="panel" id="result-subjects"></div>
+      <div class="seg filter" id="result-filter"></div>
+      <div id="result-list"></div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-action="result-home">回到今日</button>
+        <button type="button" class="btn" data-action="result-settings">调整设置</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>墨题 · 电纸书每日刷题</p>
+      <p class="fineprint">题目与解析来自题庄题库，Key 仅保存在本机服务端。</p>
+    </div>
+  </footer>
+
+</div>
+
+<div class="modal is-hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-mask" data-action="modal-cancel"></div>
+  <div class="modal-box">
+    <h2 class="modal-title" id="modal-title">提示</h2>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="actions">
+      <button type="button" class="btn" data-action="modal-cancel" id="modal-cancel">取消</button>
+      <button type="button" class="btn btn-primary" data-action="modal-ok" id="modal-ok">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast is-hidden" id="toast" role="status"></div>
+
+<noscript>
+  <div class="wrap notice">这个页面需要 JavaScript 才能答题。请在浏览器设置中开启 JavaScript。</div>
+</noscript>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>
