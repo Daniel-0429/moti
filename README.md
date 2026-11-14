@@ -20,6 +20,43 @@
 - 学习档案、今日作答、历史成绩都保存在浏览器 `localStorage`
 - 连续打卡天数、最近完成记录
 
+## 如何获取题庄 Key
+
+1. 打开题庄账户页并免费注册：
+
+   https://tizhuang.qcscience.cc/account?mode=register
+
+   注册后默认每天 150 题；未注册游客是 50 题 / 24 小时。
+
+2. 登录后进入账户页，找到「Key 与接入」→「我的 Key」。
+
+3. 在「新 Key 名称」里填一个用途，例如 `moti`，点「＋ 新建 Key」。
+
+4. 创建后立即点「复制完整 Key」，把 Key 保存到安全的地方。
+
+5. 把 Key 写入项目的 `.env.local`：
+
+   ```ini
+   TIZHUANG_API_KEY=粘贴你的Key
+   TIZHUANG_MCP_URL=https://tizhuang.qcscience.cc/mcp
+   ```
+
+6. 限制文件权限并重启服务：
+
+   ```bash
+   chmod 600 .env.local
+   node server.js
+   ```
+
+7. 打开 `http://localhost:4173/api/status`，看到 `"keyConfigured": true` 即配置成功。
+
+注意事项：
+
+- Key 等同于账户密码，只放在服务端 `.env.local`，不要写进前端、截图或聊天记录。
+- 每把 Key 可以单独「吊销」；如果泄露，立即在账户页吊销并新建一把。
+- 如果之后无法再次读取完整 Key，只能新建一把并吊销旧的。
+- 本项目由服务端把 Key 放进 `X-API-Key` 请求头，访问 `https://tizhuang.qcscience.cc/mcp`，浏览器不会拿到 Key。
+
 ## 安全：Key 放在哪里
 
 Key 只放在服务器本机文件里，浏览器永远拿不到：
